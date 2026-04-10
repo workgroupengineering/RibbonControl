@@ -7,7 +7,7 @@ Avalonia ribbon toolkit for desktop applications, with XAML-first composition, M
 [![RibbonControl.Core](https://img.shields.io/nuget/v/RibbonControl.Core.svg)](https://www.nuget.org/packages/RibbonControl.Core)
 [![RibbonControl.Persistence.Json](https://img.shields.io/nuget/v/RibbonControl.Persistence.Json.svg)](https://www.nuget.org/packages/RibbonControl.Persistence.Json)
 [![.NET](https://img.shields.io/badge/.NET-8%20%7C%2010-512BD4)](https://dotnet.microsoft.com/)
-[![Avalonia](https://img.shields.io/badge/Avalonia-11.3.11-8B44AC)](https://avaloniaui.net/)
+[![Avalonia](https://img.shields.io/badge/Avalonia-12.0.0-8B44AC)](https://avaloniaui.net/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/wieslawsoltes/RibbonControl/blob/main/LICENSE)
 
 ## NuGet Packages
