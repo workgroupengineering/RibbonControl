@@ -13,7 +13,8 @@
     <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)">
+    <PackageReference Include="Tmds.DBus.Protocol" Version="$(TmdsDBusProtocolVersion)" />
+    <PackageReference Include="ProDiagnostics" Version="$(ProDiagnosticsVersion)">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
