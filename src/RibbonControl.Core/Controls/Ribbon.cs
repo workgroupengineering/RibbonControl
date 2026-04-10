@@ -2335,7 +2335,7 @@ public class Ribbon : TemplatedControl
             return false;
         }
 
-        var focused = focusManager?.GetFocusedElement();
+        var focused = focusManager.GetFocusedElement();
         if (focused is null)
         {
             return false;
@@ -2355,7 +2355,10 @@ public class Ribbon : TemplatedControl
             return false;
         }
 
-        return focusManager.Focus(next, NavigationMethod.Tab, keyModifiers);
+        focusManager.Focus(next, NavigationMethod.Tab, keyModifiers);
+
+        var updated = focusManager.GetFocusedElement();
+        return updated is not null && !ReferenceEquals(updated, focused);
     }
 
     private static bool TryGetTabIdFromPointerSource(Visual source, out string tabId)
