@@ -323,35 +323,27 @@ public class RibbonHeadlessTests
         var topLevel = TopLevel.GetTopLevel(ribbon);
 
         Assert.NotNull(topLevel);
-        Assert.True(topLevel is IInputRoot);
+        Assert.NotNull(topLevel.FocusManager);
 
-        var inputRoot = (IInputRoot)topLevel;
-        Assert.NotNull(inputRoot.FocusManager);
-        Assert.NotNull(inputRoot.KeyboardNavigationHandler);
+        var focusManager = topLevel.FocusManager!;
 
         Assert.True(backstageButton.Focus());
         Assert.True(backstageButton.IsFocused);
-        Assert.Same(backstageButton, inputRoot.FocusManager!.GetFocusedElement());
+        Assert.Same(backstageButton, focusManager.GetFocusedElement());
 
-        var focusedBeforeMove = inputRoot.FocusManager.GetFocusedElement();
+        var focusedBeforeMove = focusManager.GetFocusedElement();
         Assert.NotNull(focusedBeforeMove);
 
-        inputRoot.KeyboardNavigationHandler!.Move(
-            focusedBeforeMove!,
-            NavigationDirection.Next,
-            KeyModifiers.None);
+        topLevel.KeyPressQwerty(PhysicalKey.Tab, RawInputModifiers.None);
 
-        var focusedAfterTab = inputRoot.FocusManager.GetFocusedElement();
+        var focusedAfterTab = focusManager.GetFocusedElement();
         Assert.NotNull(focusedAfterTab);
         Assert.False(ReferenceEquals(backstageButton, focusedAfterTab));
         Assert.True(
             focusedAfterTab is Visual focusedAfterTabVisual &&
             IsVisualOrDescendantOf(focusedAfterTabVisual, tabControl));
 
-        inputRoot.KeyboardNavigationHandler.Move(
-            focusedAfterTab!,
-            NavigationDirection.Previous,
-            KeyModifiers.Shift);
+        topLevel.KeyPressQwerty(PhysicalKey.Tab, RawInputModifiers.Shift);
         Assert.True(backstageButton.IsFocused);
     }
 

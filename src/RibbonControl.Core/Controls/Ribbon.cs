@@ -2329,17 +2329,14 @@ public class Ribbon : TemplatedControl
     private bool TryMoveRibbonFocus(KeyModifiers keyModifiers)
     {
         var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel is not IInputRoot inputRoot)
+        var focusManager = topLevel?.FocusManager;
+        if (focusManager is null)
         {
             return false;
         }
 
-        var focusManager = inputRoot.FocusManager;
-        var navigationHandler = inputRoot.KeyboardNavigationHandler;
         var focused = focusManager?.GetFocusedElement();
-        if (focusManager is null ||
-            navigationHandler is null ||
-            focused is null)
+        if (focused is null)
         {
             return false;
         }
@@ -2348,10 +2345,17 @@ public class Ribbon : TemplatedControl
             ? NavigationDirection.Previous
             : NavigationDirection.Next;
 
-        navigationHandler.Move(focused, direction, keyModifiers);
+        var next = focusManager!.FindNextElement(direction, new FindNextElementOptions
+        {
+            FocusedElement = focused,
+        });
 
-        var updated = focusManager.GetFocusedElement();
-        return updated is not null && !ReferenceEquals(updated, focused);
+        if (next is null || ReferenceEquals(next, focused))
+        {
+            return false;
+        }
+
+        return focusManager.Focus(next, NavigationMethod.Tab, keyModifiers);
     }
 
     private static bool TryGetTabIdFromPointerSource(Visual source, out string tabId)
